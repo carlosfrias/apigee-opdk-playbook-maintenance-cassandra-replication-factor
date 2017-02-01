@@ -1,0 +1,4 @@
+---
+- src: https://github.com/carlosfrias/apigee-opdk-cassandra-change-replication-factor.git
+
+- src: https://github.com/carlosfrias/apigee-opdk-cassandra-repair.git

@@ -1,0 +1,10 @@
+---
+- hosts: '{{ hosts }}'
+  serial: 1
+
+  vars_files:
+  - ~/.apigee/credentials.yml
+
+  roles:
+  - apigee-opdk-cassandra-change-replication-factor
+  - apigee-opdk-cassandra-repair
