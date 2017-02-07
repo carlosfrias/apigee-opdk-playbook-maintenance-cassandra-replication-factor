@@ -1,10 +1,21 @@
 ---
-- hosts: '{{ hosts }}'
+- include: replication_factor_update.yml
+  vars:
+    hosts: dc-1-ds
+    opdk_region: dc-1
+
+- include: replication_factor_update.yml
+  vars:
+    hosts: dc-2-ds
+    opdk_region: dc-2
+    replication_factor: '{{ factor }}'
+
+- include: cassandra-repair.yml
+  vars:
+    hosts: ds
+
+- hosts: ds,ms,rmp,qpid,pg
   serial: 1
-
-  vars_files:
-  - ~/.apigee/credentials.yml
-
   roles:
-  - apigee-opdk-cassandra-change-replication-factor
-  - apigee-opdk-cassandra-repair
+  - apigee-opdk-stop-components
+  - apigee-opdk-start-components

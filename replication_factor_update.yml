@@ -1,0 +1,25 @@
+---
+- include: configuration/update_cache.yml
+
+- hosts: '{{ hosts }}'
+  serial: 1
+  vars_files:
+  - ~/.apigee/credentials.yml
+  vars:
+    keyspaces:
+    - apimodel
+    - analytics
+    - counter
+    - devconnect
+    - edgenotification
+    - audit
+    - scheduler
+    - cache
+    - keyvaluemap
+    - kms
+    - auth
+    - ax_custom_report_model
+
+  roles:
+  - apigee-opdk-setup-default-settings
+  - apigee-opdk-cassandra-change-replication-factor
