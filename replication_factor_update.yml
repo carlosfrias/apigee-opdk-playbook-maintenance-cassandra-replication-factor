@@ -7,18 +7,21 @@
   - ~/.apigee/credentials.yml
   vars:
     keyspaces:
-    - apimodel
-    - analytics
-    - counter
-    - devconnect
-    - edgenotification
-    - audit
-    - scheduler
-    - cache
-    - keyvaluemap
-    - kms
     - auth
+    - cache
+    - devconnect
+    - user_settings
+    - apprepo
+    - kms
+    - scheduler
     - ax_custom_report_model
+    - audit
+    - aries
+    - apimodel
+    - edgenotification
+    - analytics
+    - keyvaluemap
+    - counter
 
   roles:
   - apigee-opdk-setup-default-settings
