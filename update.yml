@@ -10,10 +10,6 @@
     opdk_region: dc-2
     replication_factor: '{{ factor }}'
 
-- include: cassandra-repair.yml
-  vars:
-    hosts: ds
-
 - hosts: ms,rmp,qpid,pg
   serial: 1
   roles:
