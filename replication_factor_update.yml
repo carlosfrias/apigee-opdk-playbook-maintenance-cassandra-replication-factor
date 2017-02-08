@@ -23,3 +23,7 @@
   roles:
   - apigee-opdk-setup-default-settings
   - apigee-opdk-cassandra-change-replication-factor
+  - apigee-opdk-stop-components
+  - apigee-opdk-start-components
+
+

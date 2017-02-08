@@ -14,7 +14,7 @@
   vars:
     hosts: ds
 
-- hosts: ds,ms,rmp,qpid,pg
+- hosts: ms,rmp,qpid,pg
   serial: 1
   roles:
   - apigee-opdk-stop-components
