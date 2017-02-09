@@ -3,15 +3,21 @@
   vars:
     hosts: dc-1-ds
     opdk_region: dc-1
+  tags:
+  - dc-1
 
 - include: replication_factor_update.yml
   vars:
     hosts: dc-2-ds
     opdk_region: dc-2
     replication_factor: '{{ factor }}'
+  tags:
+  - dc-2
 
 - hosts: ms,rmp,qpid,pg
   serial: 1
   roles:
-  - apigee-opdk-stop-components
-  - apigee-opdk-start-components
+  - { role: apigee-opdk-stop-components, tags: ['stop'] }
+  - { role: apigee-opdk-start-components, tags: ['start'] }
+  tags:
+  - restart

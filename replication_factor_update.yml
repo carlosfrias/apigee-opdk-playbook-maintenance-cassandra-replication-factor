@@ -1,12 +1,14 @@
 ---
 - include: configuration/update_cache.yml
+  tags:
+  - cache
 
 - hosts: '{{ hosts }}'
   serial: 1
   vars_files:
   - ~/.apigee/credentials.yml
   vars:
-    keyspaces:
+    cassandra_keyspaces:
     - auth
     - cache
     - devconnect
@@ -24,10 +26,10 @@
     - counter
 
   roles:
-  - apigee-opdk-setup-default-settings
-  - apigee-opdk-cassandra-change-replication-factor
-  - apigee-opdk-cassandra-repair
-  - apigee-opdk-stop-components
-  - apigee-opdk-start-components
+  - { role: apigee-opdk-setup-default-settings, tags: ['cache'] }
+  - { role: apigee-opdk-cassandra-change-replication-factor, tags: ['update'], keyspaces: '{{ cassandra_keyspaces }}' }
+  - { role: apigee-opdk-cassandra-repair, tags: ['repair'] }
+  - { role: apigee-opdk-stop-components, tags: ['restart', 'stop'] }
+  - { role: apigee-opdk-start-components, tags: ['restart', 'start'] }
 
 
