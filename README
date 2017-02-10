@@ -1,5 +1,0 @@
-Apigee OPDK Playbook Maintenance Cassandra Replication Factor
-=============================================================
-
-This playbook uses the cassandra roles to modify the Cassandra Replication Factor.
-

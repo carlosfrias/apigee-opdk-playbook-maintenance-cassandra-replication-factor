@@ -18,4 +18,14 @@ This playbook contains a convenience playbook that uses the ```replication_facto
 ```ansible-playbook update.yml -vv -b -e replication_factor=3```
 
 ### Tags
-The tasks of this playbook have been partitioned work between datacenter
+Playbook Name | Tag Name | Description 
+--- | --- | ----
+update.yml | dc-1 | All tasks on dc-1 only
+update.yml | dc-2 | All tasks on dc-2 only
+update.yml | restart | Restart apigee components other than ds profile components
+replication_factor_update.yml | cache | Update ansible cache, includes apigee specific attributes
+replication_factor_update.yml | update | Update replication factor
+replication_factor_update.yml | repair | Perform nodetool repair
+replication_factor_update.yml | restart | Restart all apigee components on the node
+replication_factor_update.yml | stop | Stop all apigee components on the node
+replication_factor_update.yml | start | Start all apigee components on the node
