@@ -3,7 +3,7 @@
   tags:
   - cache
 
-- hosts: '{{ hosts }}'
+- hosts: ds[0]
   serial: 1
   vars_files:
   - ~/.apigee/credentials.yml
@@ -24,12 +24,16 @@
     - analytics
     - keyvaluemap
     - counter
-
   roles:
   - { role: apigee-opdk-setup-default-settings, tags: ['cache'] }
   - { role: apigee-opdk-cassandra-change-replication-factor, tags: ['update'], keyspaces: '{{ cassandra_keyspaces }}' }
+
+- hosts: ds
+  serial: 1
+  vars_files:
+  - ~/.apigee/credentials.yml
+  roles:
+  - { role: apigee-opdk-setup-default-settings, tags: ['cache', 'repair'] }
   - { role: apigee-opdk-cassandra-repair, tags: ['repair'] }
   - { role: apigee-opdk-stop-components, tags: ['restart', 'stop'] }
   - { role: apigee-opdk-start-components, tags: ['restart', 'start'] }
-
-
