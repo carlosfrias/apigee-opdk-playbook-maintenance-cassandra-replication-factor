@@ -1,10 +1,14 @@
 ---
-- hosts: planet
+- name: Update ansible cache
+  hosts: planet
   vars_files:
   - ~/.apigee/credentials.yml
   pre_tasks:
-  - setup:
-  - ec2_facts:
+  - name: Update core server facts
+    setup:
+
+  - name: Update AWS EC2 facts if this is an AWS instance
+    ec2_facts:
     when: "{{ ansible_bios_version | lower | search('amazon') }}"
   roles:
   - apigee-opdk-setup-default-settings
