@@ -69,4 +69,4 @@
   roles:
   - { role: apigee-opdk-setup-default-settings, tags: ['cache'] }
   - { role: apigee-opdk-stop-components, tags: ['restart', 'stop'] }
-  - { role: apigee-opdk-start-components, tags: ['restart', 'start'], component_start_delay: 10 }
+  - { role: apigee-opdk-start-components, tags: ['restart', 'start'], component_start_delay: 1 }
