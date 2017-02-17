@@ -8,7 +8,6 @@
   vars_files:
   - ~/.apigee/credentials.yml
   roles:
-  - { role: apigee-opdk-setup-default-settings, tags: ['cache'] }
   - { role: apigee-opdk-cassandra-change-quorum, consistency: TWO }
 
 - hosts: rmp
@@ -16,9 +15,8 @@
   vars_files:
   - ~/.apigee/credentials.yml
   roles:
-  - { role: apigee-opdk-setup-default-settings, tags: ['cache'] }
   - { role: apigee-opdk-stop-components, tags: ['restart', 'stop'] }
-  - { role: apigee-opdk-start-components, tags: ['restart', 'start'], component_start_delay: 10 }
+  - { role: apigee-opdk-start-components, tags: ['restart', 'start'], component_start_delay: '{{ start_delay | default(0) }}' }
 
 - hosts: ds[0]
   serial: 1
@@ -42,7 +40,6 @@
     - keyvaluemap
     - counter
   roles:
-  - { role: apigee-opdk-setup-default-settings, tags: ['cache'] }
   - { role: apigee-opdk-cassandra-change-replication-factor, tags: ['update'], keyspaces: '{{ cassandra_keyspaces }}' }
 
 
@@ -51,7 +48,6 @@
   vars_files:
   - ~/.apigee/credentials.yml
   roles:
-  - { role: apigee-opdk-setup-default-settings, tags: ['cache', 'repair'] }
   - { role: apigee-opdk-cassandra-repair, tags: ['repair'] }
 
 - hosts: ds
@@ -59,7 +55,6 @@
   vars_files:
   - ~/.apigee/credentials.yml
   roles:
-  - { role: apigee-opdk-setup-default-settings, tags: ['cache'] }
   - { role: apigee-opdk-cassandra-change-quorum, consistency: LOCAL_QUORUM }
 
 - hosts: rmp
@@ -67,6 +62,5 @@
   vars_files:
   - ~/.apigee/credentials.yml
   roles:
-  - { role: apigee-opdk-setup-default-settings, tags: ['cache'] }
   - { role: apigee-opdk-stop-components, tags: ['restart', 'stop'] }
-  - { role: apigee-opdk-start-components, tags: ['restart', 'start'], component_start_delay: 1 }
+  - { role: apigee-opdk-start-components, tags: ['restart', 'start'], component_start_delay: '{{ start_delay | default(0) }}' }
