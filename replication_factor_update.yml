@@ -10,8 +10,8 @@
   vars_files:
   - ~/.apigee/credentials.yml
   roles:
-  - { role: apigee-opdk-stop-components, tags: ['restart', 'stop'] }
-  - { role: apigee-opdk-start-components, tags: ['restart', 'start'], component_start_delay: '{{ start_delay | default(0) }}' }
+  - { role: apigee-opdk-stop-components, tags: ['pre_restart', 'pre_stop'] }
+  - { role: apigee-opdk-start-components, tags: ['pre_restart', 'pre_start'], component_start_delay: '{{ start_delay | default(0) }}' }
 
 - name: Change cassandra replication factor
   hosts: ds[0]
@@ -52,5 +52,5 @@
   vars_files:
   - ~/.apigee/credentials.yml
   roles:
-  - { role: apigee-opdk-stop-components, tags: ['restart', 'stop'] }
-  - { role: apigee-opdk-start-components, tags: ['restart', 'start'], component_start_delay: '{{ start_delay | default(0) }}' }
+  - { role: apigee-opdk-stop-components, tags: ['post_restart', 'post_stop'] }
+  - { role: apigee-opdk-start-components, tags: ['post_restart', 'post_start'], component_start_delay: '{{ start_delay | default(0) }}' }
