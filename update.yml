@@ -8,6 +8,11 @@
   roles:
   - apigee-opdk-setup-default-settings
 
+- name: Create backup prior to doing any work
+  include: backup.yml
+  tags:
+  - 'backup'
+
 - name: Rolling restart of RMP and MS
   hosts: rmp,ms
   gather_facts: no
@@ -15,8 +20,8 @@
   vars_files:
   - ~/.apigee/credentials.yml
   roles:
-  - { role: apigee-opdk-stop-components, tags: ['pre_restart', 'pre_stop'] }
-  - { role: apigee-opdk-start-components, tags: ['pre_restart', 'pre_start'], component_start_delay: '{{ start_delay | default(0) }}' }
+  - { role: apigee-opdk-stop-components, tags: ['pre_restart', 'pre_stop', 'stop', 'restart'] }
+  - { role: apigee-opdk-start-components, tags: ['pre_restart', 'pre_start','start', 'restart'], component_start_delay: '{{ start_delay | default(0) }}' }
 
 - name: Change cassandra replication factor
   gather_facts: no

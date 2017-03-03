@@ -1,0 +1,5 @@
+---
+- hosts: '{{ hosts }}'
+  gather_facts: no
+  roles:
+  - { role: apigee-opdk-backup, component_profile: '{{ component_name }}' }
