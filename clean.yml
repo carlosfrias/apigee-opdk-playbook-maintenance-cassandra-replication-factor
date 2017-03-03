@@ -11,10 +11,8 @@
       state: absent
     with_items:
     - '~/.ansible/tmp/cache'
-    - '~/.ansible/tmp/ansible.log'
+    - '~/.ansible/tmp/log'
     - '~/.apigee/ssh_keys'
-    - '~/.apigee/logs'
-    - '~/.apigee/configs'
     - '~/.apigee/logs_configs'
 
 
