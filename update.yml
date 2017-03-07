@@ -77,3 +77,45 @@
   - { role: apigee-opdk-start-components, tags: ['start'], component_start_delay: '{{ start_delay | default(0) }}' }
   tags:
   - restart
+
+- name: Download logs and configs from dc-1-ds
+  include: opdk-setup-log-files.yml
+  vars:
+    hosts: dc-1-ds
+  tags:
+  - logs
+
+- name: Download logs and configs from dc-1-ms
+  include: opdk-setup-log-files.yml
+  vars:
+    hosts: dc-1-ms
+  tags:
+  - logs
+
+- name: Download logs and configs from dc-1-rmp
+  include: opdk-setup-log-files.yml
+  vars:
+    hosts: dc-1-rmp
+  tags:
+  - logs
+
+- name: Download logs and configs from dc-2-ds
+  include: opdk-setup-log-files.yml
+  vars:
+    hosts: dc-2-ds
+  tags:
+  - logs
+
+- name: Download logs and configs from dc-2-ms
+  include: opdk-setup-log-files.yml
+  vars:
+    hosts: dc-2-ms
+  tags:
+  - logs
+
+- name: Download logs and configs from dc-2-rmp
+  include: opdk-setup-log-files.yml
+  vars:
+    hosts: dc-2-rmp
+  tags:
+  - logs
