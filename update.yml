@@ -107,7 +107,6 @@
   - { role: apigee-opdk-stop-components, }
   - { role: apigee-opdk-start-components, component_start_delay: '{{ start_delay | default(0) }}' }
 
-
 - name: Download logs and configs from dc-1-ds
   include: opdk-setup-log-files.yml
   vars:
