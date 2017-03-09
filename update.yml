@@ -13,12 +13,10 @@
   tags:
   - 'backup'
 
-- name: Rolling restart of RMP and MS
-  hosts: rmp,ms
+- name: Rolling restart of Cassandra, RMP and MS
+  hosts: ds,rmp,ms
   gather_facts: no
   serial: 1
-  vars_files:
-  - ~/.apigee/credentials.yml
   roles:
   - { role: apigee-opdk-stop-components, tags: ['pre_restart', 'pre_stop', 'stop', 'restart'] }
   - { role: apigee-opdk-start-components, tags: ['pre_restart', 'pre_start','start', 'restart'], component_start_delay: '{{ start_delay | default(0) }}' }
@@ -27,8 +25,6 @@
   gather_facts: no
   hosts: ds[0]
   serial: 1
-  vars_files:
-  - ~/.apigee/credentials.yml
   vars:
     cassandra_keyspaces:
     - auth
@@ -53,30 +49,16 @@
   hosts: ds
   gather_facts: no
   serial: 1
-  vars_files:
-  - ~/.apigee/credentials.yml
   roles:
   - { role: apigee-opdk-cassandra-repair, tags: ['repair'] }
 
-- name: Rolling restart of RMPs and MS
-  hosts: rmp,ms
+- name: Rolling restart of Cassandra, RMPs and MS
+  hosts: ds,rmp,ms
   gather_facts: no
   serial: 1
-  vars_files:
-  - ~/.apigee/credentials.yml
   roles:
   - { role: apigee-opdk-stop-components, tags: ['post_restart', 'post_stop'] }
   - { role: apigee-opdk-start-components, tags: ['post_restart', 'post_start'], component_start_delay: '{{ start_delay | default(0) }}' }
-
-- name: Rolling restart of remaining components
-  hosts: ms,rmp,qpid,pg
-  gather_facts: no
-  serial: 1
-  roles:
-  - { role: apigee-opdk-stop-components, tags: ['stop'] }
-  - { role: apigee-opdk-start-components, tags: ['start'], component_start_delay: '{{ start_delay | default(0) }}' }
-  tags:
-  - restart
 
 - name: Download logs and configs from dc-1-ds
   include: opdk-setup-log-files.yml
