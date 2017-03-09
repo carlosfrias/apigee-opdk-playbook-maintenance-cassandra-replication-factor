@@ -13,13 +13,36 @@
   tags:
   - 'backup'
 
-- name: Rolling restart of Cassandra, RMP and MS
+- name: Set message processor consistencylevel=TWO
+  hosts: rmp
+  gather_facts: no
+  serial: 1
+  tags: ['rmp-cl-two']
+  roles:
+  - { role: apigee-opdk-cassandra-consistencylevel-modifier, consistency_level: 'TWO', property_file: 'message-processor' }
+
+- name: Set management server consistencylevel=TWO
+  hosts: ms
+  gather_facts: no
+  serial: 1
+  tags: ['ms-cl-two']
+  roles:
+  - { role: apigee-opdk-cassandra-consistencylevel-modifier, consistency_level: 'TWO', property_file: 'management-server' }
+
+- name: Rolling restart of Cassandra, RMP and MS with consistencylevel=TWO
   hosts: ds,rmp,ms
   gather_facts: no
   serial: 1
   roles:
   - { role: apigee-opdk-stop-components, tags: ['pre_restart', 'pre_stop', 'stop', 'restart'] }
   - { role: apigee-opdk-start-components, tags: ['pre_restart', 'pre_start','start', 'restart'], component_start_delay: '{{ start_delay | default(0) }}' }
+
+- name: Execute nodetool repair on Cassandra nodes after updating
+  hosts: ds
+  gather_facts: no
+  serial: 1
+  roles:
+  - { role: apigee-opdk-cassandra-repair, tags: ['repair'] }
 
 - name: Change cassandra replication factor
   gather_facts: no
@@ -59,6 +82,31 @@
   roles:
   - { role: apigee-opdk-stop-components, tags: ['post_restart', 'post_stop'] }
   - { role: apigee-opdk-start-components, tags: ['post_restart', 'post_start'], component_start_delay: '{{ start_delay | default(0) }}' }
+
+- name: Set message processor consistencylevel=LOCAL_QUORUM
+  hosts: rmp
+  gather_facts: no
+  serial: 1
+  tags: ['rmp-cl-two']
+  roles:
+  - { role: apigee-opdk-cassandra-consistencylevel-modifier, consistency_level: 'LOCAL_QUORUM', property_file: 'message-processor' }
+
+- name: Set management server consistencylevel=LOCAL_QUORUM
+  hosts: ms
+  gather_facts: no
+  serial: 1
+  tags: ['ms-cl-two']
+  roles:
+  - { role: apigee-opdk-cassandra-consistencylevel-modifier, consistency_level: 'LOCAL_QUORUM', property_file: 'management-server' }
+
+- name: Rolling restart of Cassandra, RMP and MS with consistencylevel=LOCAL_QUORUM
+  hosts: ds,rmp,ms
+  gather_facts: no
+  serial: 1
+  roles:
+  - { role: apigee-opdk-stop-components, tags: ['pre_restart', 'pre_stop', 'stop', 'restart'] }
+  - { role: apigee-opdk-start-components, tags: ['pre_restart', 'pre_start','start', 'restart'], component_start_delay: '{{ start_delay | default(0) }}' }
+
 
 - name: Download logs and configs from dc-1-ds
   include: opdk-setup-log-files.yml
