@@ -80,14 +80,14 @@
   gather_facts: no
   serial: 1
   roles:
-  - { role: apigee-opdk-stop-components, tags: ['post_restart', 'post_stop'] }
-  - { role: apigee-opdk-start-components, tags: ['post_restart', 'post_start'], component_start_delay: '{{ start_delay | default(0) }}' }
+  - { role: apigee-opdk-stop-components, }
+  - { role: apigee-opdk-start-components, component_start_delay: '{{ start_delay | default(0) }}' }
 
 - name: Set message processor consistencylevel=LOCAL_QUORUM
   hosts: rmp
   gather_facts: no
   serial: 1
-  tags: ['rmp-cl-two']
+  tags: ['rmp-cl-local']
   roles:
   - { role: apigee-opdk-cassandra-consistencylevel-modifier, consistency_level: 'LOCAL_QUORUM', property_file: 'message-processor' }
 
@@ -95,7 +95,7 @@
   hosts: ms
   gather_facts: no
   serial: 1
-  tags: ['ms-cl-two']
+  tags: ['ms-cl-local']
   roles:
   - { role: apigee-opdk-cassandra-consistencylevel-modifier, consistency_level: 'LOCAL_QUORUM', property_file: 'management-server' }
 
@@ -104,8 +104,8 @@
   gather_facts: no
   serial: 1
   roles:
-  - { role: apigee-opdk-stop-components, tags: ['pre_restart', 'pre_stop', 'stop', 'restart'] }
-  - { role: apigee-opdk-start-components, tags: ['pre_restart', 'pre_start','start', 'restart'], component_start_delay: '{{ start_delay | default(0) }}' }
+  - { role: apigee-opdk-stop-components, }
+  - { role: apigee-opdk-start-components, component_start_delay: '{{ start_delay | default(0) }}' }
 
 
 - name: Download logs and configs from dc-1-ds
