@@ -1,9 +1,21 @@
-#Apigee OPDK Playbook Maintenance Cassandra Replication Factor
+# Apigee OPDK Playbook Maintenance - Cassandra Replication Factor Change Runbook
 
-This playbook uses the roles to modify the Cassandra Replication Factor using Zero Downtime .
+This is an Ansible playbook that performs a modification of Cassandra replication factor on Apigee
+components with Zero Downtime. 
 
-### Download Roles
-Use ```ansible-galaxy``` to download the required roles.
+## Requirements and Usage
+
+This playbook uses ansible-galaxy to download roles that are used by this playbook. Once roles are 
+downloaded the playbook and be invoked in several ways. The playbook can be invoked in its entirety, 
+a tag can be used to invoke a subset of playbook services or the playbook may be run manually. These
+ways of invoking the playbook are described below. 
+
+## Download Roles
+
+The playbook roles and their location is found in the  ```requirements.yml``` file. This file is 
+provided to ```ansible-galaxy``` so that the roles may be downloaded.
+
+### ansible-galaxy usage
 
 ```ansible-galaxy install -r requirements.yml```
 

@@ -7,6 +7,8 @@
 
 - src: https://github.com/carlosfrias/apigee-opdk-start-components.git
 
+- src: https://github.com/carlosfrias/apigee-opdk-setup-status.git
+
 - src: https://github.com/carlosfrias/apigee-opdk-setup-default-settings.git
 
 - src: https://github.com/carlosfrias/apigee-opdk-cache-update.git
