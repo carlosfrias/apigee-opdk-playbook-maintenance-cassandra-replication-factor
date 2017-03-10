@@ -59,15 +59,15 @@ and stop on the first task of the next play.
     
 ## Defined Tags 
 
-Playbook Name | Tag Name | Description |
---- | --- | --- | --- 
-update-replication-factor.yml | cache | Update local cache apigee attributes
-update-replication-factor.yml | backup | Backup zookeeper and cassandra
-update-replication-factor.yml | two | Set the consistency level to TWO for RMPs and MSs 
-update-replication-factor.yml | local-quorum | Set the consistency level to LOCAL_QUORUM for RMPs and MSs 
-update-replication-factor.yml | repair | Perform nodetool repair
-update-replication-factor.yml | restart | Restart all apigee components for nodes with C*/ZK, RMPs and MSs
-update-replication-factor.yml | stop | Stop all apigee components for nodes with C*/ZK, RMPs and MSs
-update-replication-factor.yml | start | Start all apigee components for nodes with C*/ZK, RMPs and MSs
-update-replication-factor.yml | update-replication-factor | Update the replication factor
-update-replication-factor.yml | logs | Download Apigee logs from servers
+Playbook Name | Tag Name | Description | Usage |
+--- | --- | --- | --- | --- |
+update-replication-factor.yml | cache | Update local cache apigee attributes | --tags=cache
+update-replication-factor.yml | backup | Backup zookeeper and cassandra | --tags=backup
+update-replication-factor.yml | two | Set the consistency level to TWO for RMPs and MSs | --tags=two 
+update-replication-factor.yml | local-quorum | Set the consistency level to LOCAL_QUORUM for RMPs and MSs  | --tags=local-quorum
+update-replication-factor.yml | repair | Perform nodetool repair | --tags=repair
+update-replication-factor.yml | restart | Restart all apigee components for nodes with C*/ZK, RMPs and MSs | --tags=restart
+update-replication-factor.yml | stop | Stop all apigee components for nodes with C*/ZK, RMPs and MSs | --tags=stop
+update-replication-factor.yml | start | Start all apigee components for nodes with C*/ZK, RMPs and MSs | --tags=start
+update-replication-factor.yml | update-replication-factor | Update the replication factor | --tags=update-replication-factor
+update-replication-factor.yml | logs | Download Apigee logs from servers | --tags=logs
