@@ -6,3 +6,4 @@
   roles:
   - { role: apigee-opdk-stop-components, tags: ['pre_restart', 'pre_stop', 'stop'] }
   - { role: apigee-opdk-start-components, tags: ['pre_restart', 'pre_start','start'], component_start_delay: '{{ start_delay | default(0) }}' }
+  - { role: apigee-opdk-setup-status, tags: ['pre_restart', 'pre_start','start'] }
