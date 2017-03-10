@@ -15,14 +15,14 @@ ways of invoking the playbook are described below.
 The playbook roles and their location is found in the  ```requirements.yml``` file. This file is 
 provided to ```ansible-galaxy``` so that the roles may be downloaded.
 
-### Usage: Ansible Galaxy 
+## Usage: Ansible Galaxy 
 
 Ansible galaxy will download the required roles when invoked with the install action and the 
 requirements file. This is accomplished in the following way:
 
 ```ansible-galaxy install -r requirements.yml```
 
-### Update Replication Factor Overview
+## Update Replication Factor Overview
  
 The ```update-replication-factor.yml``` script performs the update of the Cassandra replication 
 factor for keyspaces in a Cassandra ring. This playbook assumes that you are changing Cassandra 
@@ -31,13 +31,13 @@ replication on a planet that is composed of two regions or two data centers.
 This script expects you to provide the ```replication_factor``` setting you wish to use when the 
 script is invoked at the command line. 
 
-#### Usage: Full Playbook Invocation
+## Usage: Full Playbook Invocation
  
 The full playbook invocation is performed in the following way: 
 
     ansible-playbook update-replication-factor -e replication_factor=6 -vvv -b 
     
-### Usage: Manaul Playbook Invocation
+## Usage: Manaul Playbook Invocation
 
 This playbook enables tasks to be invoked manually. Manual invocation of this playbook is 
 accomplished in the following way: 
