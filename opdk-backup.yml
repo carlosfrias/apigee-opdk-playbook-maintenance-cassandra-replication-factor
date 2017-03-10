@@ -1,5 +1,6 @@
 ---
-- hosts: '{{ hosts }}'
+- name: Perform backup of edge component
+  hosts: ds
   gather_facts: no
   serial: 1
   roles:

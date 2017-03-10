@@ -1,0 +1,132 @@
+---
+- name: Update the ansible cache
+  hosts: planet
+  gather_facts: no
+  tags: ['cache']
+  vars_files:
+  - ~/.apigee/credentials.yml
+  roles:
+  - apigee-opdk-setup-default-settings
+
+- name: Backup zookeeper
+  include: opdk-backup.yml
+  tags: ['backup', 'backup-zookeeper']
+  vars:
+    component_name: 'apigee-zookeeper'
+
+- name: Backup cassandra
+  include: opdk-backup.yml
+  tags: ['backup', 'backup-cassandra']
+  vars:
+    component_name: 'apigee-cassandra'
+
+- name: Set message processor consistencylevel=TWO
+  include: consistency.yml
+  tags: ['two']
+  vars:
+    hosts: rmp
+    consistency_level: 'TWO'
+    property_file: 'message-processor'
+
+- name: Set management server consistencylevel=TWO
+  include: consistency.yml
+  tags: ['two']
+  vars:
+    hosts: ms
+    consistency_level: 'TWO'
+    property_file: 'management-server'
+
+- name: Rolling restart of Cassandra, RMP and MS
+  include: rolling-restart.yml
+  tags: ['restart']
+
+- name: Execute nodetool repair on Cassandra nodes after updating
+  include: repair.yml
+  tags: ['repair']
+
+- name: Change cassandra replication factor
+  gather_facts: no
+  hosts: ds[0]
+  tags: ['update-replication-factor']
+  serial: 1
+  vars:
+    replication_factor: 6
+    cassandra_keyspaces:
+    - auth
+    - cache
+    - devconnect
+    - user_settings
+    - apprepo
+    - kms
+    - scheduler
+    - ax_custom_report_model
+    - audit
+    - aries
+    - apimodel
+    - edgenotification
+    - analytics
+    - keyvaluemap
+    - counter
+  roles:
+  - { role: apigee-opdk-cassandra-change-replication-factor, keyspaces: '{{ cassandra_keyspaces }}' }
+
+- name: Execute nodetool repair on Cassandra nodes after updating
+  include: repair.yml
+
+- name: Rolling restart of Cassandra, RMP and MS
+  include: rolling-restart.yml
+
+- name: Set message processor consistencylevel=LOCAL_QUORUM
+  include: consistency.yml
+  tags: ['local-quorum']
+  vars:
+    hosts: rmp
+    consistency_level: 'LOCAL_QUORUM'
+    property_file: 'message-processor'
+
+- name: Set management server consistencylevel=LOCAL_QUORUM
+  include: consistency.yml
+  tags: ['local-quorum']
+  vars:
+    hosts: ms
+    consistency_level: 'LOCAL_QUORUM'
+    property_file: 'management-server'
+
+- name: Rolling restart of Cassandra, RMP and MS
+  include: rolling-restart.yml
+
+- name: Download logs and configs from dc-1-ds
+  include: opdk-setup-log-files.yml
+  vars:
+    hosts: dc-1-ds
+  tags: ['logs']
+
+- name: Download logs and configs from dc-1-ms
+  include: opdk-setup-log-files.yml
+  vars:
+    hosts: dc-1-ms
+  tags: ['logs']
+
+- name: Download logs and configs from dc-1-rmp
+  include: opdk-setup-log-files.yml
+  vars:
+    hosts: dc-1-rmp
+  tags: ['logs']
+
+- name: Download logs and configs from dc-2-ds
+  include: opdk-setup-log-files.yml
+  vars:
+    hosts: dc-2-ds
+  tags: ['logs']
+
+- name: Download logs and configs from dc-2-ms
+  include: opdk-setup-log-files.yml
+  vars:
+    hosts: dc-2-ms
+  tags: ['logs']
+
+- name: Download logs and configs from dc-2-rmp
+  include: opdk-setup-log-files.yml
+  vars:
+    hosts: dc-2-rmp
+  tags: ['logs']

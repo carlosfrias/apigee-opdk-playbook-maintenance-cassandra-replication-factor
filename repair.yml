@@ -1,0 +1,7 @@
+---
+- name: Execute nodetool repair on Cassandra nodes after updating
+  hosts: ds
+  gather_facts: no
+  serial: 1
+  roles:
+  - { role: apigee-opdk-cassandra-repair }

@@ -1,0 +1,7 @@
+---
+- name: Set message processor consistencylevel
+  hosts: '{{ hosts }}'
+  gather_facts: no
+  serial: 1
+  roles:
+  - { role: apigee-opdk-cassandra-consistencylevel-modifier}

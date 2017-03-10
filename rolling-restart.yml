@@ -1,0 +1,8 @@
+---
+- name: Perform rolling restart of edge components
+  hosts: ds,rmp,ms
+  gather_facts: no
+  serial: 1
+  roles:
+  - { role: apigee-opdk-stop-components, tags: ['pre_restart', 'pre_stop', 'stop'] }
+  - { role: apigee-opdk-start-components, tags: ['pre_restart', 'pre_start','start'], component_start_delay: '{{ start_delay | default(0) }}' }
