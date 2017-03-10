@@ -49,21 +49,25 @@ for permission to execute, stop execution or continue execution to the first tas
 The prompt accepts ```y``` to execute; ```n``` to stop execution or ```c``` to continue execution 
 and stop on the first task of the next play. 
 
-### Usage: update.yml 
-This playbook contains a convenience playbook that uses the ```replication_factor_update.yml```
- and requires that you specify only the ```replication_factor```.
+## Usage: Playbook Invocation with Tags
 
-```ansible-playbook update.yml -vv -b -e replication_factor=3```
+    ansible-playbook update-replication-factor -e replication_factor=6 -vvv --tags={{ tag name}}
+    
+## Usage: Manual Playbook Invocation with Tags    
 
-### Defined Tags 
-Playbook Name | Tag Name | Description 
---- | --- | ----
-update.yml | dc-1 | All tasks on dc-1 only
-update.yml | dc-2 | All tasks on dc-2 only
-update.yml | restart | Restart apigee components other than ds profile components
-replication_factor_update.yml | cache | Update ansible cache, includes apigee specific attributes
-replication_factor_update.yml | update | Update replication factor
-replication_factor_update.yml | repair | Perform nodetool repair
-replication_factor_update.yml | restart | Restart all apigee components on the node
-replication_factor_update.yml | stop | Stop all apigee components on the node
-replication_factor_update.yml | start | Start all apigee components on the node
+    ansible-playbook update-replication-factor -e replication_factor=6 -vvv --tags={{ tag name}} --step
+    
+## Defined Tags 
+
+Playbook Name | Tag Name | Description |
+--- | --- | --- | --- 
+update-replication-factor.yml | cache | Update local cache apigee attributes
+update-replication-factor.yml | backup | Backup zookeeper and cassandra
+update-replication-factor.yml | two | Set the consistency level to TWO for RMPs and MSs 
+update-replication-factor.yml | local-quorum | Set the consistency level to LOCAL_QUORUM for RMPs and MSs 
+update-replication-factor.yml | repair | Perform nodetool repair
+update-replication-factor.yml | restart | Restart all apigee components for nodes with C*/ZK, RMPs and MSs
+update-replication-factor.yml | stop | Stop all apigee components for nodes with C*/ZK, RMPs and MSs
+update-replication-factor.yml | start | Start all apigee components for nodes with C*/ZK, RMPs and MSs
+update-replication-factor.yml | update-replication-factor | Update the replication factor
+update-replication-factor.yml | logs | Download Apigee logs from servers
