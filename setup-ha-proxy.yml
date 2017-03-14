@@ -1,5 +1,6 @@
 ---
 - hosts: haproxy2
+  become: true
   vars: 
     haproxy_socket: '/var/lib/haproxy/stats'
     haproxy_chroot: '/var/lib/haproxy'
@@ -13,35 +14,35 @@
     haproxy_backend_mode: 'http'
     haproxy_backend_balance_method: 'roundrobin'
     haproxy_backend_httpchk: ''
-    haproxy_backend_servers: 
-      - name: dc_1_rmp0
-        address: 172.31.30.210:9001
-      - name: dc_1_rmp1
-        address: 172.31.27.249:9001
-      - name: dc_1_rmp2
-        address: 172.31.28.229:9001
-      - name: dc_1_rmp3
-        address: 172.31.21.163:9001
-      - name: dc_1_rmp4
-        address: 172.31.28.183:9001
-      - name: dc_1_rmp5
-        address: 172.31.27.153:9001
-      - name: dc_1_rmp6
-        address: 172.31.21.127:9001
-      - name: dc_2_rmp0
-        address: 172.31.23.241:9001
-      - name: dc_2_rmp1
-        address: 172.31.22.237:9001
-      - name: dc_2_rmp2
-        address: 172.31.22.85:9001
-      - name: dc_2_rmp3
-        address: 172.31.26.205:9001
-      - name: dc_2_rmp4
-        address: 172.31.27.45:9001
-      - name: dc_2_rmp5
-        address: 172.31.16.106:9001
-      - name: dc_2_rmp6
-        address: 172.31.24.230:9001
+#    haproxy_backend_servers:
+#      - name: dc_1_rmp0
+#        address: 172.31.30.210:9001
+#      - name: dc_1_rmp1
+#        address: 172.31.27.249:9001
+#      - name: dc_1_rmp2
+#        address: 172.31.28.229:9001
+#      - name: dc_1_rmp3
+#        address: 172.31.21.163:9001
+#      - name: dc_1_rmp4
+#        address: 172.31.28.183:9001
+#      - name: dc_1_rmp5
+#        address: 172.31.27.153:9001
+#      - name: dc_1_rmp6
+#        address: 172.31.21.127:9001
+#      - name: dc_2_rmp0
+#        address: 172.31.23.241:9001
+#      - name: dc_2_rmp1
+#        address: 172.31.22.237:9001
+#      - name: dc_2_rmp2
+#        address: 172.31.22.85:9001
+#      - name: dc_2_rmp3
+#        address: 172.31.26.205:9001
+#      - name: dc_2_rmp4
+#        address: 172.31.27.45:9001
+#      - name: dc_2_rmp5
+#        address: 172.31.16.106:9001
+#      - name: dc_2_rmp6
+#        address: 172.31.24.230:9001
 
   roles: 
   - ansible-role-haproxy
