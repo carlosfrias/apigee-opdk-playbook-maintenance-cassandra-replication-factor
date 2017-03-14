@@ -27,6 +27,7 @@
     hosts: rmp
     consistency_level: 'TWO'
     property_file: 'message-processor'
+    cache_enable: 'false'
 
 - name: Set management server consistencylevel=TWO
   include: consistency.yml
@@ -35,10 +36,11 @@
     hosts: ms
     consistency_level: 'TWO'
     property_file: 'management-server'
+    cache_enable: 'false'
 
 - name: Rolling restart of Cassandra, RMP and MS
   include: rolling-restart.yml
-  tags: ['restart']
+  tags: ['restart', 'two', 'local-quorum']
 
 - name: Execute nodetool repair on Cassandra nodes after updating
   include: repair.yml
@@ -82,6 +84,7 @@
     hosts: rmp
     consistency_level: 'LOCAL_QUORUM'
     property_file: 'message-processor'
+    cache_enable: 'true'
 
 - name: Set management server consistencylevel=LOCAL_QUORUM
   include: consistency.yml
@@ -90,6 +93,7 @@
     hosts: ms
     consistency_level: 'LOCAL_QUORUM'
     property_file: 'management-server'
+    cache_enable: 'true'
 
 - name: Rolling restart of Cassandra, RMP and MS
   include: rolling-restart.yml

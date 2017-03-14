@@ -1,0 +1,8 @@
+---
+- name: Set reachability flag
+  hosts: '{{ hosts }}'
+  gather_facts: no
+  roles:
+  - { role: apigee-opdk-set-reachable, reachable: '{{ reachability }}', server_types: ['router','mp'] }
+  tags:
+  - reachability
