@@ -3,18 +3,22 @@
   hosts: '{{ hosts }}'
   gather_facts: no
   serial: 1
+  vars:
+    cwc_properties:
+    - { key: conf_keymanagement_kms_cache_memory_element_enable, value: '{{ enable_cache }}', file_name: '{{ property_file }}' }
   roles:
-  - { role: apigee-opdk-cassandra-consistencylevel-modifier}
+  - { role: apigee-opdk-cassandra-consistencylevel-modifier }
+  - { role: apigee-opdk-cwc-update }
 
-  tasks:
-  - name: Update conf_keymanagement_kms_cache_memory_element_enable property
-    lineinfile:
-      create: yes
-      group: "{{ opdk_group_name }}"
-      owner: "{{ opdk_user_name }}"
-      mode: 0644
-      state: present
-      regexp: "^conf_keymanagement_kms_cache_memory_element_enable"
-      line: "conf_keymanagement_kms_cache_memory_element_enable={{ enable_cache }}"
-      dest: "/opt/apigee/customer/application/{{ property_file }}.properties"
+#  tasks:
+#  - name: Update conf_keymanagement_kms_cache_memory_element_enable property
+#    lineinfile:
+#      create: yes
+#      group: "{{ opdk_group_name }}"
+#      owner: "{{ opdk_user_name }}"
+#      mode: 0644
+#      state: present
+#      regexp: "^conf_keymanagement_kms_cache_memory_element_enable"
+#      line: "conf_keymanagement_kms_cache_memory_element_enable={{ enable_cache }}"
+#      dest: "/opt/apigee/customer/application/{{ property_file }}.properties"
 

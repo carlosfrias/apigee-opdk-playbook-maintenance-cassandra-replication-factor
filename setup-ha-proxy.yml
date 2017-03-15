@@ -32,4 +32,4 @@
         Host: "api.tmobile.com"
         Content-Type: "application/x-www-form-urlencoded"
       body: grant_type=client_credentials&client_id={{ client_id }}&client_secret={{ client_secret }}
-    with_sequence: start=1 end=5000
+    with_sequence: start=1 end="{{ end | default(5000) }}"
