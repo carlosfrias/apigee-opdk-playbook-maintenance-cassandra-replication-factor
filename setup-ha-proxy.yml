@@ -32,4 +32,6 @@
         Host: "api.tmobile.com"
         Content-Type: "application/x-www-form-urlencoded"
       body: grant_type=client_credentials&client_id={{ client_id }}&client_secret={{ client_secret }}
+      async: 1
+      poll: 0
     with_sequence: start=1 end="{{ end | default(5000) }}"
