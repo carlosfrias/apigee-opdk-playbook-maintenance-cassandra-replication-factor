@@ -22,7 +22,7 @@
 
 - name: Set message processor consistencylevel=TWO
   include: consistency.yml
-  tags: ['two']
+  tags: ['two', 'two-rmp']
   vars:
     hosts: rmp
     consistency_level: 'TWO'
@@ -31,16 +31,28 @@
 
 - name: Set management server consistencylevel=TWO
   include: consistency.yml
-  tags: ['two']
+  tags: ['two', 'two-ms']
   vars:
     hosts: ms
     consistency_level: 'TWO'
     property_file: 'management-server'
     enable_cache: 'false'
 
-- name: Rolling restart of Cassandra, RMP and MS
+- name: Rolling restart of RMP
   include: rolling-restart.yml
-  tags: ['restart', 'two', 'local-quorum']
+  vars:
+    hosts: 'rmp'
+    component: 'edge-message-processor'
+    self_server_types: ['mp']
+  tags: ['restart','restart-rmp']
+
+- name: Rolling restart of Management Server
+  include: rolling-restart.yml
+  vars:
+    hosts: 'ms'
+    component: 'edge-management-server'
+    self_server_types: ['ms']
+  tags: ['restart','restart-ms']
 
 - name: Execute nodetool repair on Cassandra nodes after updating
   include: repair.yml
@@ -74,12 +86,25 @@
 - name: Execute nodetool repair on Cassandra nodes after updating
   include: repair.yml
 
-- name: Rolling restart of Cassandra, RMP and MS
+- name: Rolling restart of RMP
   include: rolling-restart.yml
+  vars:
+    hosts: 'rmp'
+    component: 'edge-message-processor'
+    self_server_types: ['mp']
+  tags: ['restart','restart-rmp']
+
+- name: Rolling restart of Management Server
+  include: rolling-restart.yml
+  vars:
+    hosts: 'ms'
+    component: 'edge-management-server'
+    self_server_types: ['ms']
+  tags: ['restart','restart-ms']
 
 - name: Set message processor consistencylevel=LOCAL_QUORUM
   include: consistency.yml
-  tags: ['local-quorum']
+  tags: ['local-quorum', 'local-quorum-rmp']
   vars:
     hosts: rmp
     consistency_level: 'LOCAL_QUORUM'
@@ -88,15 +113,12 @@
 
 - name: Set management server consistencylevel=LOCAL_QUORUM
   include: consistency.yml
-  tags: ['local-quorum']
+  tags: ['local-quorum', 'local-quorum-ms']
   vars:
     hosts: ms
     consistency_level: 'LOCAL_QUORUM'
     property_file: 'management-server'
     enable_cache: 'true'
-
-- name: Rolling restart of Cassandra, RMP and MS
-  include: rolling-restart.yml
 
 - name: Download logs and configs from dc-1-ds
   include: opdk-setup-log-files.yml

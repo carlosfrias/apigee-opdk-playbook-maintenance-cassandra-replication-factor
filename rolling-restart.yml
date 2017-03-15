@@ -1,25 +1,15 @@
 ---
-#- name: Perform rolling restart of edge components
-#  hosts: ds
-#  gather_facts: no
-#  serial: 1
-#  roles:
-#  - { role: apigee-opdk-cassandra-shutdown-preparation, tags: ['stop', 'restart'] }
-#  - { role: apigee-opdk-stop-components, tags: ['pre_restart', 'pre_stop', 'stop'] }
-#  - { role: apigee-opdk-start-components, tags: ['pre_restart', 'pre_start','start'], component_start_delay: '{{ start_delay | default(0) }}' }
-#  - { role: apigee-opdk-setup-status, tags: ['pre_restart', 'pre_start','start'] }
-
 - name: Perform rolling restart of RMPs
-  hosts: rmp
+  hosts: '{{ hosts }}'
   gather_facts: no
   serial: 1
   roles:
-  - { role: apigee-opdk-server-self, server_types: ['mp']}
-  - { role: apigee-opdk-set-reachable, reachability: 'false', server_types: ['mp'] }
-  - { role: apigee-opdk-stop-components, tags: ['pre_restart', 'pre_stop', 'stop'], component_name: 'edge-message-processor'  }
-  - { role: apigee-opdk-start-components, tags: ['pre_restart', 'pre_start','start'], component_start_delay: '{{ start_delay | default(0) }}', component_name: 'edge-message-processor' }
+  - { role: apigee-opdk-server-self, server_types: '{{ self_server_types }}', when: self_server_types is defined}
+  - { role: apigee-opdk-set-reachable, reachability: 'false', server_types: '{{ self_server_types }}', when: self_server_types is defined }
+  - { role: apigee-opdk-stop-components, tags: ['pre_restart', 'pre_stop', 'stop'], component_name: '{{ component }}'  }
+  - { role: apigee-opdk-start-components, tags: ['pre_restart', 'pre_start','start'], component_start_delay: '{{ start_delay | default(0) }}', component_name: '{{ component }}', when: self_server_types is defined }
   - { role: apigee-opdk-setup-status, tags: ['pre_restart', 'pre_start','start'] }
-  - { role: apigee-opdk-set-reachable, reachability: 'true', server_types: ['mp'] }
+  - { role: apigee-opdk-set-reachable, reachability: 'true', server_types: '{{ self_server_types }}', when: self_server_types is defined }
 
 - name: Perform rolling restart of Management Servers
   hosts: ms
