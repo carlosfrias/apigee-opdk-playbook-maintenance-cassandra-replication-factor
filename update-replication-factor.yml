@@ -92,7 +92,6 @@
     hosts: 'rmp'
     component: 'edge-message-processor'
     self_server_types: ['mp']
-  tags: ['restart','restart-rmp']
 
 - name: Rolling restart of Management Server
   include: rolling-restart.yml
@@ -100,7 +99,6 @@
     hosts: 'ms'
     component: 'edge-management-server'
     self_server_types: ['ms']
-  tags: ['restart','restart-ms']
 
 - name: Set message processor consistencylevel=LOCAL_QUORUM
   include: consistency.yml

@@ -1,5 +1,5 @@
 ---
-- name: Perform rolling restart of RMPs
+- name: Perform rolling restart
   hosts: '{{ hosts }}'
   gather_facts: no
   serial: 1
@@ -10,13 +10,3 @@
   - { role: apigee-opdk-start-components, tags: ['pre_restart', 'pre_start','start'], component_start_delay: '{{ start_delay | default(0) }}', component_name: '{{ component }}', when: self_server_types is defined }
   - { role: apigee-opdk-setup-status, tags: ['pre_restart', 'pre_start','start'] }
   - { role: apigee-opdk-set-reachable, reachability: 'true', server_types: '{{ self_server_types }}', when: self_server_types is defined }
-
-- name: Perform rolling restart of Management Servers
-  hosts: ms
-  gather_facts: no
-  serial: 1
-  roles:
-  - { role: apigee-opdk-server-self, server_types: ['ms']}
-  - { role: apigee-opdk-stop-components, tags: ['pre_restart', 'pre_stop', 'stop'], component_name: 'edge-management-server'  }
-  - { role: apigee-opdk-start-components, tags: ['pre_restart', 'pre_start','start'], component_start_delay: '{{ start_delay | default(0) }}', component_name: 'edge-message-processor' }
-  - { role: apigee-opdk-setup-status, tags: ['pre_restart', 'pre_start','start'] }
