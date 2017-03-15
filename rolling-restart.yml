@@ -9,7 +9,7 @@
 #  - { role: apigee-opdk-start-components, tags: ['pre_restart', 'pre_start','start'], component_start_delay: '{{ start_delay | default(0) }}' }
 #  - { role: apigee-opdk-setup-status, tags: ['pre_restart', 'pre_start','start'] }
 
-- name: Perform rolling restart of edge components
+- name: Perform rolling restart of RMPs
   hosts: rmp
   gather_facts: no
   serial: 1
@@ -21,7 +21,7 @@
   - { role: apigee-opdk-setup-status, tags: ['pre_restart', 'pre_start','start'] }
   - { role: apigee-opdk-set-reachable, reachability: 'true', server_types: ['mp'] }
 
-- name: Perform rolling restart of edge components
+- name: Perform rolling restart of Management Servers
   hosts: ms
   gather_facts: no
   serial: 1
