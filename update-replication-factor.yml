@@ -54,9 +54,9 @@
     self_server_types: ['ms']
   tags: ['restart','restart-ms']
 
-- name: Execute nodetool repair on Cassandra nodes after updating
-  include: repair.yml
-  tags: ['repair']
+#- name: Execute nodetool repair on Cassandra nodes after updating
+#  include: repair.yml
+#  tags: ['repair']
 
 - name: Change cassandra replication factor
   gather_facts: no
@@ -83,8 +83,26 @@
   roles:
   - { role: apigee-opdk-cassandra-change-replication-factor, keyspaces: '{{ cassandra_keyspaces }}' }
 
-- name: Execute nodetool repair on Cassandra nodes after updating
-  include: repair.yml
+#- name: Execute nodetool repair on Cassandra nodes after updating
+#  include: repair.yml
+
+- name: Set message processor consistencylevel=LOCAL_QUORUM
+  include: consistency.yml
+  tags: ['local-quorum', 'local-quorum-rmp']
+  vars:
+    hosts: rmp
+    consistency_level: 'LOCAL_QUORUM'
+    property_file: 'message-processor'
+    enable_cache: 'false'
+
+- name: Set management server consistencylevel=LOCAL_QUORUM
+  include: consistency.yml
+  tags: ['local-quorum', 'local-quorum-ms']
+  vars:
+    hosts: ms
+    consistency_level: 'LOCAL_QUORUM'
+    property_file: 'management-server'
+    enable_cache: 'false'
 
 - name: Rolling restart of RMP
   include: rolling-restart.yml
@@ -99,24 +117,6 @@
     hosts: 'ms'
     component: 'edge-management-server'
     self_server_types: ['ms']
-
-- name: Set message processor consistencylevel=LOCAL_QUORUM
-  include: consistency.yml
-  tags: ['local-quorum', 'local-quorum-rmp']
-  vars:
-    hosts: rmp
-    consistency_level: 'LOCAL_QUORUM'
-    property_file: 'message-processor'
-    enable_cache: 'true'
-
-- name: Set management server consistencylevel=LOCAL_QUORUM
-  include: consistency.yml
-  tags: ['local-quorum', 'local-quorum-ms']
-  vars:
-    hosts: ms
-    consistency_level: 'LOCAL_QUORUM'
-    property_file: 'management-server'
-    enable_cache: 'true'
 
 - name: Download logs and configs from dc-1-ds
   include: opdk-setup-log-files.yml

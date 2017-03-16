@@ -21,6 +21,11 @@
   - ansible-role-haproxy
 
   tasks:
+  - name: Install http-tools
+    yum:
+      name: http-tools
+      state: present
+
   - name: Use haproxy
     ignore_errors: yes
     connection: local

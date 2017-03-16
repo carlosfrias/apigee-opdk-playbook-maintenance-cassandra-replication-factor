@@ -8,5 +8,5 @@
     - { key: conf_keymanagement_kms_cache_memory_element_enable, value: '{{ enable_cache }}', file_name: '{{ property_file }}' }
   roles:
   - { role: apigee-opdk-cassandra-consistencylevel-modifier }
-  - { role: apigee-opdk-cwc-update }
+  - { role: apigee-opdk-cwc-update, tags: ["update_cache"] }
 
