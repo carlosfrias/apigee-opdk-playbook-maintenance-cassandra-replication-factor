@@ -1,6 +1,6 @@
 ---
 - name: Update the ansible cache
-  hosts: planet
+  hosts: planet,haproxy2
   gather_facts: no
   tags: ['cache']
   vars_files:

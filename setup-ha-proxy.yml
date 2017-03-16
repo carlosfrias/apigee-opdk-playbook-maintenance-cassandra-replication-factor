@@ -24,6 +24,7 @@
   - name: Use haproxy
     ignore_errors: yes
     connection: local
+    tags: ['run-proxy']
     become: no
     uri:
       url: "http://34.207.183.115:9001/oauth/client_credential/accesstoken"
