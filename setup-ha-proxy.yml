@@ -1,5 +1,5 @@
 ---
-- hosts: haproxy2
+- hosts: haproxy
   become: true
   vars:
     client_id: ameQ5tEp9iNLsPvwjCAKTejD561knLfW
@@ -10,7 +10,7 @@
     haproxy_group: 'haproxy'
     haproxy_frontend_name: 'all'
     haproxy_frontend_bind_address: '*'
-    haproxy_frontend_port: 9001
+    haproxy_frontend_port: "{{ edge_proxy_port }}"
     haproxy_frontend_mode: 'http'
     haproxy_backend_name: 'app'
     haproxy_backend_mode: 'http'
@@ -27,7 +27,7 @@
     tags: ['run-proxy']
     become: no
     uri:
-      url: "http://34.207.183.115:9001/oauth/client_credential/accesstoken"
+      url: "http://{{ inventory_hostname }}:{{ edge_proxy_port }}/oauth/client_credential/accesstoken"
       method: POST
       headers:
         Host: "api.tmobile.com"
