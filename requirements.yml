@@ -21,7 +21,7 @@
 
 - src: https://github.com/carlosfrias/apigee-fetch-files
 
-- src: https://github.com/carlosfrias/ansible-role-haproxy
+- src: https://github.com/carlosfrias/apigee-opdk-haproxy-rmp
 
 - src: https://github.com/carlosfrias/apigee-opdk-server-self
 
