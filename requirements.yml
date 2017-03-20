@@ -3,6 +3,8 @@
 
 - src: https://github.com/carlosfrias/apigee-opdk-cassandra-repair.git
 
+- src: https://github.com/carlosfrias/apigee-opdk-cassandra-rebuild.git
+
 - src: https://github.com/carlosfrias/apigee-opdk-stop-components.git
 
 - src: https://github.com/carlosfrias/apigee-opdk-cassandra-shutdown-preparation.git

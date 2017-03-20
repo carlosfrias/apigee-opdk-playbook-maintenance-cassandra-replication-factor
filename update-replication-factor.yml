@@ -54,9 +54,13 @@
     self_server_types: ['ms']
   tags: ['restart','restart-ms']
 
-#- name: Execute nodetool repair on Cassandra nodes after updating
-#  include: repair.yml
-#  tags: ['repair']
+- name: Execute nodetool rebuild on Cassandra nodes to distribute data quickly
+  include: rebuild.yml
+  tags: ['rebuild']
+
+- name: Execute nodetool repair on Cassandra nodes after updating to verify data
+  include: repair.yml
+  tags: ['repair']
 
 - name: Change cassandra replication factor
   gather_facts: no
@@ -83,8 +87,11 @@
   roles:
   - { role: apigee-opdk-cassandra-change-replication-factor, keyspaces: '{{ cassandra_keyspaces }}' }
 
-#- name: Execute nodetool repair on Cassandra nodes after updating
-#  include: repair.yml
+- name: Execute nodetool rebuild on Cassandra nodes to distribute data quickly
+  include: rebuild.yml
+
+- name: Execute nodetool repair on Cassandra nodes after updating to verify data
+  include: repair.yml
 
 - name: Set message processor consistencylevel=LOCAL_QUORUM
   include: consistency.yml
