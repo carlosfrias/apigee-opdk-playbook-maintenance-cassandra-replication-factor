@@ -1,5 +1,5 @@
 ---
-- name: Execute nodetool repair on Cassandra nodes after updating
+- name: Execute nodetool rebuild on Cassandra nodes after updating
   hosts: ds
   gather_facts: no
   serial: 1
