@@ -118,38 +118,38 @@
     component: 'edge-management-server'
     self_server_types: ['ms']
 
-- name: Download logs and configs from dc-1-ds
+- name: Download logs and configs from dc1-ds
   include: opdk-setup-log-files.yml
   vars:
-    hosts: dc-1-ds
+    hosts: dc1-ds
   tags: ['logs']
 
-- name: Download logs and configs from dc-1-ms
+- name: Download logs and configs from dc1-ms
   include: opdk-setup-log-files.yml
   vars:
-    hosts: dc-1-ms
+    hosts: dc1-ms
   tags: ['logs']
 
-- name: Download logs and configs from dc-1-rmp
+- name: Download logs and configs from dc1-rmp
   include: opdk-setup-log-files.yml
   vars:
-    hosts: dc-1-rmp
+    hosts: dc1-rmp
   tags: ['logs']
 
-- name: Download logs and configs from dc-2-ds
+- name: Download logs and configs from dc2-ds
   include: opdk-setup-log-files.yml
   vars:
-    hosts: dc-2-ds
+    hosts: dc2-ds
   tags: ['logs']
 
-- name: Download logs and configs from dc-2-ms
+- name: Download logs and configs from dc2-ms
   include: opdk-setup-log-files.yml
   vars:
-    hosts: dc-2-ms
+    hosts: dc2-ms
   tags: ['logs']
 
-- name: Download logs and configs from dc-2-rmp
+- name: Download logs and configs from dc2-rmp
   include: opdk-setup-log-files.yml
   vars:
-    hosts: dc-2-rmp
+    hosts: dc2-rmp
   tags: ['logs']
