@@ -71,3 +71,9 @@ update-replication-factor.yml | stop | Stop all apigee components for nodes with
 update-replication-factor.yml | start | Start all apigee components for nodes with C*/ZK, RMPs and MSs | --tags=start
 update-replication-factor.yml | update-replication-factor | Update the replication factor | --tags=update-replication-factor
 update-replication-factor.yml | logs | Download Apigee logs from servers | --tags=logs
+<!-- BEGIN Google Required Disclaimer -->
+
+# Required Disclaimer
+
+This is not an officially supported Google product.
+<!-- END Google Required Disclaimer -->
