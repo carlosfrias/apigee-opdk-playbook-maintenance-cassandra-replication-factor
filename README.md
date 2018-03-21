@@ -73,7 +73,7 @@ update-replication-factor.yml | update-replication-factor | Update the replicati
 update-replication-factor.yml | logs | Download Apigee logs from servers | --tags=logs
 <!-- BEGIN Google Required Disclaimer -->
 
-# Required Disclaimer
+# Not Google Product Clause
 
 This is not an officially supported Google product.
 <!-- END Google Required Disclaimer -->
